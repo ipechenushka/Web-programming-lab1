@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab1 Web-programming</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body {
+			background-image: url(img/back2.jpg);
+			background-repeat: no-repeat;
+			background-size: 100%;
+			padding: 0;
+			margin: 0;
+		}
+
+		.header {
+			display: flex;
+			font-style: italic;
+			font-size: 20px;
+			color: red;
+			background-color: #2f2f2f;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		.my-Name {
+			padding-left: 50px;
+		}
+
+		.group {
+			margin-left: 450px;
+		}
+
+		.variant {
+			margin-left: auto;
+			padding-right: 50px;
+		}
+
+		.work {
+			margin-top: 50px;
+			padding-left: 50px;
+			color: #fff;
+		}
+
+		.activiti div {
+			margin-top: 10%;
+		}
+
+		.work {
+			display: flex;
+		}
+
+		.datas {
+			font-size: 20px;
+			font-weight: bold;
+		}
+
+		.for-R input {
+			margin-left: 5%;
+		}
+
+		.table-X {
+			border-collapse: collapse;
+			border-color: #fff;
+		}
+
+		.picture1 {
+			border-radius: 15px;
+			margin-left: 200px;
+		}
+	</style>
+</head>
+<body onload="checkDatas()">
+	<div class="header">
+		<p class="my-Name">ФИО:<br>Иванов Илья</p>
+		<p class="group">Группа:<br>P3212</p>
+		<p class="variant">Вариант:<br>212010</p>
+	</div>
+	<div class="work">
+		<div class="datas">
+			<form class="activiti" name="test" action="php/server.php" method="get">
+				<div class="for-X">
+					Выберите значеие X: 
+					<table class="table-X" border="1">
+						<tr>
+							<td>
+								<input id="choose-X" type="checkbox" name="X-value[]" value="-3" onchange="checkDatas()">-3
+							</td>
+							<td>
+								<input type="checkbox" name="X-value[]" value="-2" onchange="checkDatas()">-2
+							</td>
+							<td>
+									<input type="checkbox" name="X-value[]" value="-1" onchange="checkDatas()">-1
+								</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" name="X-value[]" value="0" onchange="checkDatas()">0
+							</td>
+							<td>
+								<input type="checkbox" name="X-value[]" value="1" onchange="checkDatas()">1
+							</td>
+							<td>
+								<input type="checkbox" name="X-value[]" value="2" onchange="checkDatas()">2
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" name="X-value[]" value="3" onchange="checkDatas()">3
+							</td>
+							<td>
+								<input type="checkbox" name="X-value[]" value="4" onchange="checkDatas()">4
+							</td>
+							<td>
+								<input type="checkbox" name="X-value[]" value="5" onchange="checkDatas()">5
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="for-Y">
+					Введите значение Y:
+					<input id="choose-Y" type="text" name="Y-value" placeholder="[-3...5]" oninput="incorrectY(this)" required maxlength="8">
+				</div>
+				<div class="for-R">
+					Выберите значение R:<br>
+					|<input id="choose-R" type="checkbox" name="R-value[]" value="1" onchange="checkDatas()">1
+					|<input type="checkbox" name="R-value[]" value="2" onchange="checkDatas()">2
+					|<input type="checkbox" name="R-value[]" value="3" onchange="checkDatas()">3
+					|<input type="checkbox" name="R-value[]" value="4" onchange="checkDatas()">4
+					|<input type="checkbox" name="R-value[]" value="5" onchange="checkDatas()">5 |
+				</div>
+				<div class="sub">
+					<input type="submit" id="sub" name="send" value="Рассчитать" onreset="checkDatas()" disabled>
+					<input type="reset" name="clear" value="Очистить">
+				</div>
+			</form>
+		</div>
+		<img src="img/graphic.png" width="350" height="350" class="picture1">
+	</div>
+	<script type="text/javascript">
+		function incorrectY(element){
+		//console.log()
+
+			if (!isNaN(element.value) || element.value == "-"){
+				if(element.value < -3){
+					element.value = -3;
+				} else if(element.value > 5){
+					element.value = 5;
+				}
+			} else {
+				element.value = "";
+			}
+
+			checkDatas();
+		}
+
+
+		function checkDatas(){
+
+			var r_ckecker = false;
+			var x_ckecker = false;
+			var y_checker = false;
+
+			var x = document.getElementsByName("X-value[]");
+			var y = document.getElementById("choose-Y").value;
+			var r = document.getElementsByName("R-value[]");
+			var x_count = x.length;
+			var r_count =r.length;
+
+			for(var i = 0; i < x_count; i++){
+				//console.log(i + " " + x[i].checked);
+				if(x[i].checked == true){
+					x_ckecker = true;
+					break;
+				}
+			}
+
+			for(var i = 0; i < r_count; i++){
+				//console.log(i + " " + r[i].checked);
+				if(r[i].checked == true){
+					r_ckecker = true;
+					break;
+				}
+			}
+
+			if(y != "" && y != "-"){
+				y_checker = true;
+			}
+
+			if(y_checker == true && x_ckecker == true && r_ckecker == true){
+				document.getElementById("sub").disabled = false;	
+			} else {
+				document.getElementById("sub").disabled = true;
+			}
+		}
+	</script>
+</body>
+</html>
